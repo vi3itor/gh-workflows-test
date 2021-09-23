@@ -9,7 +9,7 @@ on:
 
 jobs:
   windows-install:
-    runs-on: windows-2019
+    runs-on: windows-2016
     
     strategy:
       fail-fast: false
@@ -19,7 +19,7 @@ jobs:
 
     env:
       VCPKG_ROOT: "${{ github.workspace }}\\vcpkg"
-      WindowsSDKVersion: "10.0.19041.0"
+      # WindowsSDKVersion: "10.0.19041.0"
 
     steps:
       - uses: actions/checkout@v2
