@@ -43,7 +43,7 @@ jobs:
 
       - name: Run vcpkg install
         run: |
-          cd %VCPKG_ROOT%
+          cd $Env:VCPKG_ROOT
           .\bootstrap-vcpkg.bat
           vcpkg install python3
       
