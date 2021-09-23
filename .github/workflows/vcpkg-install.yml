@@ -19,6 +19,7 @@ jobs:
 
     env:
       VCPKG_ROOT: "${{ github.workspace }}\\vcpkg"
+      WindowsSDKVersion: "10.0.19041.0"
 
     steps:
       - uses: actions/checkout@v2
