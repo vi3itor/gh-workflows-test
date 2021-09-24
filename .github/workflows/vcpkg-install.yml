@@ -49,7 +49,7 @@ jobs:
         run: |
           cd $Env:VCPKG_ROOT
           .\bootstrap-vcpkg.bat
-          vcpkg install python3:${{ matrix.architecture }} --debug
+          vcpkg install python3:${{ matrix.architecture }}-windows --debug
       
       - name: Upload vcpkg log on failure
         if: ${{ failure() }}
