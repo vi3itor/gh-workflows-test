@@ -9,28 +9,33 @@ on:
 
 jobs:
   windows-install:
-    runs-on: windows-2016
+    runs-on: windows-2019
     
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.6, 3.9]  # 3.7, 3.8, 3.9 ]
+        # python-version: [ 3.6, 3.9]  # 3.7, 3.8, 3.9 ]
         architecture: ['x86', 'x64']
 
     env:
       VCPKG_ROOT: "${{ github.workspace }}\\vcpkg"
-      # WindowsSDKVersion: "10.0.19041.0"
-
+      WindowsSDKVersion: "10.0.19041.0\\"
+      WindowsSDKLibVersion: "10.0.19041.0\\"
+      WindowsSdkVerBinPath: "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.19041.0\\"
+      UCRTVersion: "10.0.19041.0"
+      WindowsLibPath: "C:\\Program Files (x86)\\Windows Kits\\10\\UnionMetadata\\10.0.19041.0;C:\\Program Files (x86)\\Windows Kits\\10\\References\\10.0.19041.0"
+      
+      
     steps:
       - uses: actions/checkout@v2
         with:
           path: 'this-repo'
       
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: ${{ matrix.architecture }}
+#       - name: Set up Python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: ${{ matrix.python-version }}
+#           architecture: ${{ matrix.architecture }}
 
       - name: Checkout vcpkg
         uses: actions/checkout@v2
@@ -44,7 +49,7 @@ jobs:
         run: |
           cd $Env:VCPKG_ROOT
           .\bootstrap-vcpkg.bat
-          vcpkg install python3
+          vcpkg install python3::${{ matrix.architecture }} --debug
       
       - name: Upload vcpkg log on failure
         if: ${{ failure() }}
